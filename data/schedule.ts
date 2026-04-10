@@ -203,13 +203,6 @@ export const scheduleWeeks: ScheduleWeek[] = [
     includeFridaySparring: false,
     extraEntries: [
       {
-        date: '2026-06-06',
-        dayLabel: 'Zaterdag 06 jun',
-        time: 'Nog te bepalen',
-        session: 'Lichte activatie / rust',
-        type: 'optional'
-      },
-      {
         date: '2026-06-07',
         dayLabel: 'Zondag 07 jun',
         time: 'Nog te bepalen',

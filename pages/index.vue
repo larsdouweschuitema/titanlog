@@ -188,10 +188,13 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
         <article
           v-for="day in week.groupedDays"
           :key="`${week.title}-${day.dayLabel}`"
+          :id="`day-${day.entries[0].date}`"
           class="day-card"
           :class="{ 'day-card-past': day.isPastDay }"
         >
-          <h3>{{ day.dayLabel }}</h3>
+          <div class="day-card-header">
+            <h3>{{ day.dayLabel }}</h3>
+          </div>
 
           <div
             v-for="(entry, entryIndex) in day.entries"
@@ -206,6 +209,17 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
             </div>
 
             <strong class="session-label">{{ entry.session }}</strong>
+          </div>
+
+          <div class="day-card-footer">
+            <NuxtLink
+              :to="`/logboek#day-${day.entries[0].date}`"
+              class="day-icon-link"
+              aria-label="Ga naar logboek voor deze dag"
+              title="Ga naar logboek"
+            >
+              🍽
+            </NuxtLink>
           </div>
         </article>
 
