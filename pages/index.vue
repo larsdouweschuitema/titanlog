@@ -81,9 +81,6 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
   const filteredEntries = visibleEntries.filter((entry) => matchesActiveFilters(entry))
 
   const sortedEntries = [...filteredEntries].sort((a, b) => {
-    const dayCompare = (weekdayOrder[getDayToken(a.dayLabel)] ?? 99) - (weekdayOrder[getDayToken(b.dayLabel)] ?? 99)
-    if (dayCompare !== 0) return dayCompare
-
     const dateCompare = a.date.localeCompare(b.date)
     if (dateCompare !== 0) return dateCompare
 

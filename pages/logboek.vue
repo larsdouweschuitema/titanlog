@@ -4,7 +4,7 @@ import { campLogs, getDailyTotals } from '~/data/logbook'
 const currentDate = new Date('2026-04-11T12:00:00')
 const todayKey = currentDate.toISOString().slice(0, 10)
 const goalWeightKg = 95
-const startWeightKg = 87
+const startWeightKg = 86.8
 const hasLogData = (log: typeof campLogs[number]) =>
   Object.keys(log.meals).length > 0 ||
   Boolean(log.sleepHours) ||
