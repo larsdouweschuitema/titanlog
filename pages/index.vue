@@ -1,18 +1,26 @@
 <script setup lang="ts">
 import { goals, scheduleWeeks, typeLabels } from '~/data/schedule'
 
-type DisplayStatus = 'all' | 'training' | 'completed' | 'constraint' | 'event'
+type DisplayStatus = 'all' | 'training' | 'completed' | 'constraint' | 'event' | 'open'
+type NoteEntry = {
+  date: string
+  dayLabel: string
+  time: string
+  session: string
+  notes: string[]
+}
 
-const currentDate = new Date('2026-04-10T12:00:00')
+const currentDate = new Date('2026-04-11T12:00:00')
 const fightDate = new Date('2026-06-07T12:00:00')
 const allEntries = scheduleWeeks.flatMap((week) => week.entries)
-const trainingCount = allEntries.filter((entry) => entry.type === 'training').length
+const openTrainingCount = allEntries.filter((entry) => entry.type === 'open' && entry.date >= currentDate.toISOString().slice(0, 10)).length
 const daysUntilFight = Math.ceil((fightDate.getTime() - currentDate.getTime()) / 86400000)
 const weeksUntilFight = Math.ceil(daysUntilFight / 7)
-const recurringConstraintSessions = new Set(['Werk + kinderen', 'Kantoordag'])
+const recurringConstraintSessions = new Set(['Kantoordag'])
+const selectedNoteEntry = ref<NoteEntry | null>(null)
 
 const fixedConstraints = [
-  'Dinsdag: hele dag bezet',
+  'Dinsdag: 09:00-17:00 bezet',
   'Vrijdag: 09:00-17:00 bezet'
 ]
 const currentDateKey = currentDate.toISOString().slice(0, 10)
@@ -27,6 +35,7 @@ const statusFilters = [
   { key: 'all' as const, label: 'Alles' },
   { key: 'training' as const, label: 'Aankomend' },
   { key: 'completed' as const, label: 'Voltooid' },
+  { key: 'open' as const, label: 'Trainingsopties' },
   { key: 'constraint' as const, label: 'Bezet' },
   { key: 'event' as const, label: 'Event' }
 ]
@@ -53,27 +62,22 @@ const matchesActiveFilters = (entry: { date: string; type: string }) => {
   return activeFilters.value.includes(getEntryType(entry) as DisplayStatus)
 }
 
-const weekdayOrder: Record<string, number> = {
-  maandag: 1,
-  dinsdag: 2,
-  woensdag: 3,
-  donderdag: 4,
-  vrijdag: 5,
-  zaterdag: 6,
-  zondag: 7,
-  week: 8
-}
-
-const getDayToken = (dayLabel: string) => dayLabel.split(' ')[0].toLowerCase()
-
 const getTimeOrder = (time: string) => {
   if (time === 'Hele dag') return 0
   if (time === 'Overdag') return 1
-  if (time === 'Nog open') return 98
+  if (time === 'Nog open') return 97
   if (time === 'Nog te bepalen') return 99
 
   const [hours = '23', minutes = '59'] = time.split('-')[0].split(':')
   return Number(hours) * 60 + Number(minutes)
+}
+
+const openNotes = (entry: NoteEntry) => {
+  selectedNoteEntry.value = entry
+}
+
+const closeNotes = () => {
+  selectedNoteEntry.value = null
 }
 
 const weekCards = computed(() => scheduleWeeks.map((week) => {
@@ -133,12 +137,12 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
 
       <div class="stats-row">
         <div>
-          <strong>{{ trainingCount }}</strong>
-          <span>ingeplande trainingen</span>
+          <strong>{{ openTrainingCount }}</strong>
+          <span>nog boekbare trainingsopties</span>
         </div>
         <div>
           <strong>{{ weeksUntilFight }}</strong>
-          <span>weken tot Almere's Finest vanaf 10 april 2026</span>
+          <span>weken tot Almere's Finest vanaf 11 april 2026</span>
         </div>
       </div>
 
@@ -197,6 +201,12 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
             v-for="(entry, entryIndex) in day.entries"
             :key="`${week.title}-${day.dayLabel}-${entryIndex}-${entry.time}`"
             class="time-block"
+            :class="{ 'time-block-clickable': entry.notes?.length }"
+            :tabindex="entry.notes?.length ? 0 : undefined"
+            :role="entry.notes?.length ? 'button' : undefined"
+            @click="entry.notes?.length ? openNotes(entry as NoteEntry) : undefined"
+            @keydown.enter="entry.notes?.length ? openNotes(entry as NoteEntry) : undefined"
+            @keydown.space.prevent="entry.notes?.length ? openNotes(entry as NoteEntry) : undefined"
           >
             <div class="time-block-top">
               <span class="time-label">{{ entry.time }}</span>
@@ -206,6 +216,9 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
             </div>
 
             <strong class="session-label">{{ entry.session }}</strong>
+            <span v-if="entry.notes?.length" class="notes-trigger">
+              Bekijk notities
+            </span>
           </div>
 
           <div class="day-card-footer">
@@ -228,5 +241,26 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
         </article>
       </div>
     </section>
+
+    <div
+      v-if="selectedNoteEntry"
+      class="notes-overlay"
+      @click.self="closeNotes"
+    >
+      <section class="notes-modal">
+        <div class="notes-modal-header">
+          <div>
+            <p class="section-kicker">{{ selectedNoteEntry.dayLabel }}</p>
+            <h2 class="notes-title">{{ selectedNoteEntry.session }}</h2>
+            <p class="week-range">{{ selectedNoteEntry.time }}</p>
+          </div>
+          <button type="button" class="notes-close" @click="closeNotes">Sluit</button>
+        </div>
+
+        <ul class="notes-list">
+          <li v-for="note in selectedNoteEntry.notes" :key="note">{{ note }}</li>
+        </ul>
+      </section>
+    </div>
   </main>
 </template>

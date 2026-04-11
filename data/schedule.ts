@@ -1,4 +1,4 @@
-export type ScheduleType = 'training' | 'constraint' | 'optional' | 'event'
+export type ScheduleType = 'training' | 'constraint' | 'optional' | 'event' | 'open'
 
 export type Goal = {
   label: string
@@ -12,6 +12,7 @@ export type ScheduleEntry = {
   time: string
   session: string
   type: ScheduleType
+  notes?: string[]
 }
 
 export type ScheduleWeek = {
@@ -24,7 +25,10 @@ type WeekDefinition = {
   title: string
   rangeLabel: string
   weekStartDate: string
-  includeTuesdayBlock?: boolean
+  includeMondayFightTeam?: boolean
+  includeTuesdayOffice?: boolean
+  includeTuesdayFightTeam?: boolean
+  includeWednesdayFightTeam?: boolean
   includeThursdayFightTeam?: boolean
   includeFridayOffice?: boolean
   includeFridaySparring?: boolean
@@ -39,21 +43,27 @@ export const typeLabels: Record<ScheduleType, string> = {
   training: 'Aankomend',
   constraint: 'Bezet',
   optional: 'Optioneel',
-  event: 'Event'
+  event: 'Event',
+  open: 'Trainingsoptie'
 }
 
 const buildWeek = ({
   title,
   rangeLabel,
   weekStartDate,
-  includeTuesdayBlock = true,
-  includeThursdayFightTeam = true,
+  includeMondayFightTeam = false,
+  includeTuesdayOffice = true,
+  includeTuesdayFightTeam = false,
+  includeWednesdayFightTeam = false,
+  includeThursdayFightTeam = false,
   includeFridayOffice = true,
-  includeFridaySparring = true,
+  includeFridaySparring = false,
   extraEntries = []
 }: WeekDefinition): ScheduleWeek => {
   const start = new Date(`${weekStartDate}T12:00:00`)
   const defaults: ScheduleEntry[] = []
+  const weekdayLabels = ['Zondag', 'Maandag', 'Dinsdag', 'Woensdag', 'Donderdag', 'Vrijdag', 'Zaterdag']
+  const monthLabels = ['jan', 'feb', 'mrt', 'apr', 'mei', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'dec']
 
   const getDateForOffset = (daysFromStart: number) => {
     const date = new Date(start)
@@ -61,20 +71,56 @@ const buildWeek = ({
     return date.toISOString().slice(0, 10)
   }
 
-  if (includeTuesdayBlock) {
+  const getDayLabelForOffset = (daysFromStart: number) => {
+    const date = new Date(start)
+    date.setDate(date.getDate() + daysFromStart)
+    return `${weekdayLabels[date.getDay()]} ${String(date.getDate()).padStart(2, '0')} ${monthLabels[date.getMonth()]}`
+  }
+
+  if (includeMondayFightTeam) {
     defaults.push({
-      date: getDateForOffset(3),
-      dayLabel: 'Dinsdag',
-      time: 'Hele dag',
-      session: 'Werk + kinderen',
+      date: getDateForOffset(0),
+      dayLabel: getDayLabelForOffset(0),
+      time: '20:00-21:00',
+      session: 'Wedstrijdgroep Kickboksen',
+      type: 'training'
+    })
+  }
+
+  if (includeTuesdayOffice) {
+    defaults.push({
+      date: getDateForOffset(1),
+      dayLabel: getDayLabelForOffset(1),
+      time: '09:00-17:00',
+      session: 'Kantoordag',
       type: 'constraint'
+    })
+  }
+
+  if (includeTuesdayFightTeam) {
+    defaults.push({
+      date: getDateForOffset(1),
+      dayLabel: getDayLabelForOffset(1),
+      time: '20:00-21:00',
+      session: 'Wedstrijdgroep Kickboksen',
+      type: 'training'
+    })
+  }
+
+  if (includeWednesdayFightTeam) {
+    defaults.push({
+      date: getDateForOffset(2),
+      dayLabel: getDayLabelForOffset(2),
+      time: '19:30-21:00',
+      session: 'Wedstrijdgroep Kickboksen',
+      type: 'training'
     })
   }
 
   if (includeThursdayFightTeam) {
     defaults.push({
-      date: getDateForOffset(5),
-      dayLabel: 'Donderdag',
+      date: getDateForOffset(3),
+      dayLabel: getDayLabelForOffset(3),
       time: '20:00-21:00',
       session: 'Wedstrijdgroep Kickboksen',
       type: 'training'
@@ -83,8 +129,8 @@ const buildWeek = ({
 
   if (includeFridayOffice) {
     defaults.push({
-      date: getDateForOffset(6),
-      dayLabel: 'Vrijdag',
+      date: getDateForOffset(4),
+      dayLabel: getDayLabelForOffset(4),
       time: '09:00-17:00',
       session: 'Kantoordag',
       type: 'constraint'
@@ -93,8 +139,8 @@ const buildWeek = ({
 
   if (includeFridaySparring) {
     defaults.push({
-      date: getDateForOffset(6),
-      dayLabel: 'Vrijdag',
+      date: getDateForOffset(4),
+      dayLabel: getDayLabelForOffset(4),
       time: '19:00-20:30',
       session: 'Sparren',
       type: 'training'
@@ -111,8 +157,11 @@ const buildWeek = ({
 export const scheduleWeeks: ScheduleWeek[] = [
   buildWeek({
     title: 'Week 15',
-    rangeLabel: 'vr 10 apr - vr 17 apr',
-    weekStartDate: '2026-04-11',
+    rangeLabel: 'ma 06 apr - zo 12 apr',
+    weekStartDate: '2026-04-06',
+    includeTuesdayFightTeam: false,
+    includeThursdayFightTeam: false,
+    includeFridaySparring: false,
     extraEntries: [
       {
         date: '2026-04-10',
@@ -126,7 +175,17 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 11 apr',
         time: '08:45-10:00',
         session: 'PrepX',
-        type: 'training'
+        type: 'training',
+        notes: [
+          'Alles 4x 1min',
+          'Back squats 50kg',
+          'Ski jump-squads',
+          'Slam ball 12kg',
+          'Battle rope-Burpee',
+          'Treadmill > Sprint',
+          'Ketlebell 16kg overhead',
+          'Hang clean and press 2.5 kg beide kant met stang'
+        ]
       },
       {
         date: '2026-04-12',
@@ -134,7 +193,18 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '12:00-13:00',
         session: '30+ Kickboksen',
         type: 'training'
-      },
+      }
+    ]
+  }),
+  buildWeek({
+    title: 'Week 16',
+    rangeLabel: 'ma 13 apr - zo 19 apr',
+    weekStartDate: '2026-04-13',
+    includeTuesdayFightTeam: true,
+    includeWednesdayFightTeam: true,
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true,
+    extraEntries: [
       {
         date: '2026-04-13',
         dayLabel: 'Maandag 13 apr',
@@ -145,62 +215,94 @@ export const scheduleWeeks: ScheduleWeek[] = [
       {
         date: '2026-04-15',
         dayLabel: 'Woensdag 15 apr',
-        time: '19:30-21:00',
-        session: 'Wedstrijdgroep Kickboksen',
-        type: 'training'
+        time: '12:00-13:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
       },
       {
         date: '2026-04-16',
         dayLabel: 'Donderdag 16 apr',
         time: '10:00-11:00',
-        session: 'Power & Condition with Sensei Treffel',
+        session: 'Personal training FitByTreff',
         type: 'training'
       }
     ]
   }),
   buildWeek({
-    title: 'Week 16',
-    rangeLabel: 'za 18 apr - vr 24 apr',
-    weekStartDate: '2026-04-18'
-  }),
-  buildWeek({
     title: 'Week 17',
-    rangeLabel: 'za 25 apr - vr 01 mei',
-    weekStartDate: '2026-04-25'
+    rangeLabel: 'ma 20 apr - zo 26 apr',
+    weekStartDate: '2026-04-20',
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true
   }),
   buildWeek({
     title: 'Week 18',
-    rangeLabel: 'za 02 mei - vr 08 mei',
-    weekStartDate: '2026-05-02'
+    rangeLabel: 'ma 27 apr - zo 03 mei',
+    weekStartDate: '2026-04-27',
+    includeWednesdayFightTeam: true,
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true
   }),
   buildWeek({
     title: 'Week 19',
-    rangeLabel: 'za 09 mei - vr 15 mei',
-    weekStartDate: '2026-05-09'
+    rangeLabel: 'ma 04 mei - zo 10 mei',
+    weekStartDate: '2026-05-04',
+    includeWednesdayFightTeam: true,
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true
   }),
   buildWeek({
     title: 'Week 20',
-    rangeLabel: 'za 16 mei - vr 22 mei',
-    weekStartDate: '2026-05-16'
+    rangeLabel: 'ma 11 mei - zo 17 mei',
+    weekStartDate: '2026-05-11',
+    includeMondayFightTeam: true,
+    includeTuesdayFightTeam: true,
+    includeWednesdayFightTeam: true,
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true,
+    extraEntries: [
+      {
+        date: '2026-05-13',
+        dayLabel: 'Woensdag 13 mei',
+        time: '12:00-13:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      }
+    ]
   }),
   buildWeek({
     title: 'Week 21',
-    rangeLabel: 'za 23 mei - vr 29 mei',
-    weekStartDate: '2026-05-23'
+    rangeLabel: 'ma 18 mei - zo 24 mei',
+    weekStartDate: '2026-05-18',
+    includeMondayFightTeam: true,
+    includeTuesdayFightTeam: true,
+    includeWednesdayFightTeam: true,
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true,
+    extraEntries: [
+      {
+        date: '2026-05-20',
+        dayLabel: 'Woensdag 20 mei',
+        time: '12:00-13:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      }
+    ]
   }),
   buildWeek({
     title: 'Week 22',
-    rangeLabel: 'za 30 mei - vr 05 jun',
-    weekStartDate: '2026-05-30'
+    rangeLabel: 'ma 25 mei - zo 31 mei',
+    weekStartDate: '2026-05-25',
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true
   }),
   buildWeek({
     title: 'Week 23',
-    rangeLabel: 'za 06 jun - zo 07 jun',
-    weekStartDate: '2026-06-06',
-    includeTuesdayBlock: false,
-    includeThursdayFightTeam: false,
-    includeFridayOffice: false,
-    includeFridaySparring: false,
+    rangeLabel: 'ma 01 jun - zo 07 jun',
+    weekStartDate: '2026-06-01',
+    includeWednesdayFightTeam: true,
+    includeThursdayFightTeam: true,
+    includeFridaySparring: true,
     extraEntries: [
       {
         date: '2026-06-07',
