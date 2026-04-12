@@ -118,6 +118,7 @@ const getWhatsappShareUrl = (entry: ShareableEntry) => {
 }
 
 const trainingTagOrder: TrainingTag[] = ['Conditie', 'Kracht', 'Techniek', 'Sparren']
+const getTrainingCount = (entries: ScheduleEntry[]) => entries.filter((entry) => entry.type === 'training').length
 const getWeekTagCounts = (entries: ScheduleEntry[]): TagCount[] => {
   const counts = new Map<TrainingTag, number>()
 
@@ -134,9 +135,14 @@ const getWeekTagCounts = (entries: ScheduleEntry[]): TagCount[] => {
     .map((tag) => ({ tag, count: counts.get(tag) ?? 0 }))
 }
 
+const averageTrainingPerWeek = props.event.weeks.length
+  ? (props.event.weeks.reduce((sum, week) => sum + getTrainingCount(week.entries), 0) / props.event.weeks.length).toFixed(1)
+  : '0.0'
+
 const weekCards = computed(() => props.event.weeks
   .map((week) => {
     const weekTagCounts = getWeekTagCounts(week.entries)
+    const trainingCount = getTrainingCount(week.entries)
     const visibleEntries = week.entries.filter((entry) => !recurringConstraintSessions.has(entry.session))
     const filteredEntries = visibleEntries.filter((entry) => matchesActiveFilters(entry))
 
@@ -169,7 +175,8 @@ const weekCards = computed(() => props.event.weeks
       ...week,
       isPastWeek: sortedEntries.length > 0 && sortedEntries[sortedEntries.length - 1].date < currentDateKey,
       groupedDays,
-      weekTagCounts
+      weekTagCounts,
+      trainingCount
     }
   })
   .filter((week) => week.groupedDays.length > 0))
@@ -206,6 +213,10 @@ const weekCards = computed(() => props.event.weeks
         <div class="stats-card">
           <strong>{{ event.weeks.length }}</strong>
           <span>kampweken</span>
+        </div>
+        <div class="stats-card">
+          <strong>{{ averageTrainingPerWeek }}</strong>
+          <span>gemiddeld aantal trainingen per week</span>
         </div>
       </div>
 
@@ -245,6 +256,7 @@ const weekCards = computed(() => props.event.weeks
         <div>
           <h2 class="week-title">{{ week.title }}</h2>
           <p class="week-range">{{ week.rangeLabel }}</p>
+          <p class="week-training-total">{{ week.trainingCount }} trainingen deze week</p>
           <div v-if="week.weekTagCounts.length" class="week-tag-summary">
             <span class="week-tag-summary-label">Aantal trainingen per categorie:</span>
             <span

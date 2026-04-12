@@ -403,6 +403,13 @@ h1 {
   letter-spacing: 0.02em;
 }
 
+.week-training-total {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
 .week-tag-summary {
   display: flex;
   flex-wrap: wrap;
