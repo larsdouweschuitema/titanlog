@@ -8,7 +8,7 @@ const event = computed(() => getEventById(route.params.id as string))
 if (!event.value) {
   throw createError({
     statusCode: 404,
-    statusMessage: 'Event not found'
+    statusMessage: 'Event niet gevonden'
   })
 }
 </script>
@@ -17,7 +17,7 @@ if (!event.value) {
   <div>
     <header class="page-shell event-subnav-shell">
       <div class="event-subnav">
-        <NuxtLink to="/" class="event-back-link">← Back to events</NuxtLink>
+        <NuxtLink to="/" class="event-back-link">← Terug naar events</NuxtLink>
         <div class="event-switcher">
           <NuxtLink
             v-for="item in events"

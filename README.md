@@ -1,32 +1,80 @@
 # Titanlog
 
-Nuxt 3 app for managing Titan's fight camp planning, training schedule, and daily logbook.
+Titanlog is a Nuxt 3 app for managing fight camps across multiple events.
 
-The app has two main sections:
+It combines:
 
-- `Week overview`: weekly training schedule, including fixed sessions, constraints, events, trainers, notes, and bookable training options
-- `Logbook`: space for daily nutrition, sleep, and body metrics
+- an event overview
+- a per-event camp planner with week numbers
+- a daily logbook for nutrition, sleep, weight, and body fat
 
-## Features
+The app is built to support both the current camp and future events, while keeping each event's training history separate.
 
-- weekly fight camp planning
-- status filters for `Completed`, `Busy`, `Training options`, and `Event`
-- clickable training notes per session
-- WhatsApp share link for bookable training options
-- trainer details on relevant sessions
-- mobile-friendly layout
+## What the app does
+
+### Events overview
+
+The homepage shows:
+
+- the current active event
+- upcoming events
+- links into each event-specific camp view
+
+### Event camp view
+
+Each event has its own planning page with:
+
+- camp weeks
+- grouped training days
+- session details and trainer names
+- completion states
+- constraints
+- bookable training options
+- WhatsApp sharing for open training slots
+- weekly totals by training category
+
+### Logbook
+
+The logbook is a separate page for daily tracking such as:
+
+- meals and macros
+- sleep
+- weight
+- body fat percentage
+
+## Core features
+
+- multi-event planning structure
+- event-specific camp timelines
+- week-based training overview
+- clickable training notes
+- status filters for training, completed sessions, constraints, events, and training options
+- compact category tags on sessions such as `Conditioning`, `Strength`, `Technique`, and `Sparring`
+- weekly category counters
+- WhatsApp sharing for bookable training options
+- responsive layout for desktop and mobile
+
+## Tech stack
+
+- Nuxt 3
+- Vue 3
+- plain CSS
 
 ## Project structure
 
 ```text
-data/schedule.ts     Training schedule and week data
-data/logbook.ts      Daily logbook data
-pages/index.vue      Week overview
-pages/logboek.vue    Nutrition and recovery overview
-assets/css/main.css  Styling
+app.vue                        Top-level navigation
+assets/css/main.css            Global styling and theme
+components/EventCampView.vue   Reusable event camp planner UI
+data/events.ts                 Event definitions and event metadata
+data/schedule.ts               Camp schedule data for the active event
+data/logbook.ts                Daily logbook data
+pages/index.vue                Event overview page
+pages/events/[id].vue          Event-specific camp detail page
+pages/logboek.vue              Logbook page
 ```
 
-## Run locally
+## Local development
 
 Install dependencies:
 
@@ -34,7 +82,7 @@ Install dependencies:
 npm install
 ```
 
-Start the development server:
+Run the development server:
 
 ```bash
 npm run dev
@@ -52,36 +100,50 @@ Run the production build locally:
 npm run start
 ```
 
-## Update the schedule
+## Updating event data
 
-Most of the planning content lives in [data/schedule.ts](/Users/username/Documents/GitHub/titanlog/data/schedule.ts).
+### Events
 
-There you can:
+Event metadata lives in [data/events.ts](/Users/username/Documents/GitHub/titanlog/data/events.ts).
 
-- edit weeks
-- add individual sessions
-- update event goals
-- add trainers via `detail`
+Use it to:
+
+- add new events
+- mark an event as active or upcoming
+- define the event name, date, location, and summary
+- connect event-specific week data
+
+### Schedule
+
+Camp schedule data lives in [data/schedule.ts](/Users/username/Documents/GitHub/titanlog/data/schedule.ts).
+
+Use it to:
+
+- define weeks and date ranges
+- add or update sessions
+- add trainer names via `detail`
 - add notes via `notes`
-- add bookable training windows with `type: 'open'`
+- add category tags via `tags`
+- add bookable training slots with `type: 'open'`
 
-Example session:
+Example:
 
 ```ts
 {
   date: '2026-04-16',
-  dayLabel: 'Thursday 16 Apr',
+  dayLabel: 'Donderdag 16 apr',
   time: '10:00-11:00',
   session: 'Personal training',
   detail: 'Treffel',
+  tags: ['Conditie', 'Kracht'],
   type: 'training'
 }
 ```
 
-## Update the logbook
+### Logbook
 
-Daily logbook data lives in [data/logbook.ts](/Users/username/Documents/GitHub/titanlog/data/logbook.ts).
+Daily log data lives in [data/logbook.ts](/Users/username/Documents/GitHub/titanlog/data/logbook.ts).
 
-## Deploy
+## Deployment
 
-The repository is connected to GitHub and used for deployment on Vercel.
+The repository is connected to GitHub and intended for deployment on Vercel.

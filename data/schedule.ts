@@ -1,4 +1,5 @@
 export type ScheduleType = 'training' | 'constraint' | 'optional' | 'event' | 'open'
+export type TrainingTag = 'Conditie' | 'Kracht' | 'Techniek' | 'Sparren'
 
 export type Goal = {
   label: string
@@ -13,6 +14,7 @@ export type ScheduleEntry = {
   session: string
   detail?: string
   type: ScheduleType
+  tags?: TrainingTag[]
   notes?: string[]
 }
 
@@ -84,6 +86,7 @@ const buildWeek = ({
       dayLabel: getDayLabelForOffset(0),
       time: '20:00-21:00',
       session: 'Wedstrijdgroep Kickboksen',
+      tags: ['Techniek'],
       type: 'training'
     })
   }
@@ -105,6 +108,7 @@ const buildWeek = ({
       time: '20:00-21:00',
       session: 'Wedstrijdgroep Kickboksen',
       detail: 'Benito',
+      tags: ['Techniek'],
       type: 'training'
     })
   }
@@ -115,6 +119,7 @@ const buildWeek = ({
       dayLabel: getDayLabelForOffset(2),
       time: '19:30-21:00',
       session: 'Wedstrijdgroep Kickboksen',
+      tags: ['Techniek'],
       type: 'training'
     })
   }
@@ -126,6 +131,7 @@ const buildWeek = ({
       time: '20:00-21:00',
       session: 'Wedstrijdgroep Kickboksen',
       detail: 'Benito',
+      tags: ['Techniek'],
       type: 'training'
     })
   }
@@ -146,6 +152,7 @@ const buildWeek = ({
       dayLabel: getDayLabelForOffset(4),
       time: '19:00-20:30',
       session: 'Sparren',
+      tags: ['Sparren'],
       type: 'training'
     })
   }
@@ -172,6 +179,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '19:00-20:30',
         session: 'Sparren',
         detail: 'Treffel',
+        tags: ['Sparren'],
         type: 'training',
         notes: [
           'Iets later ingestroomd rond 19:15 door een misverstand over de begintijd, waardoor ik een deel van de warming-up heb gemist.',
@@ -188,6 +196,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '08:45-10:00',
         session: 'PrepX',
         detail: 'Treffel',
+        tags: ['Conditie', 'Kracht'],
         type: 'training',
         notes: [
           'Alle onderdelen uitgevoerd in blokken van 4 keer 1 minuut.',
@@ -206,6 +215,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '12:00-13:00',
         session: '30+ Kickboksen',
         detail: 'Gerven + Charles',
+        tags: ['Techniek', 'Sparren'],
         type: 'training',
         notes: [
           'Warming-up met lopen op de plaats, stoten naar voren en omhoog, knieën, oplopende sprints en schaduwboksen met push-ups, squats en sit-ups op commando.',
@@ -253,6 +263,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '10:00-11:00',
         session: 'Personal training',
         detail: 'Treffel',
+        tags: ['Conditie', 'Kracht'],
         type: 'training'
       },
       {
@@ -260,6 +271,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 18 apr',
         time: '08:45-10:00',
         session: 'PrepX',
+        tags: ['Conditie', 'Kracht'],
         type: 'training'
       },
       {
@@ -267,6 +279,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zondag 19 apr',
         time: '12:00-13:00',
         session: '30+ Kickboksen',
+        tags: ['Techniek', 'Sparren'],
         type: 'training'
       }
     ]
@@ -290,6 +303,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 25 apr',
         time: '08:45-10:00',
         session: 'PrepX',
+        tags: ['Conditie', 'Kracht'],
         type: 'training'
       },
       {
@@ -378,6 +392,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 16 mei',
         time: '08:45-10:00',
         session: 'PrepX',
+        tags: ['Conditie', 'Kracht'],
         type: 'training'
       },
       {
@@ -385,6 +400,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zondag 17 mei',
         time: '12:00-13:00',
         session: '30+ Kickboksen',
+        tags: ['Techniek', 'Sparren'],
         type: 'training'
       }
     ]
@@ -418,6 +434,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 23 mei',
         time: '08:45-10:00',
         session: 'PrepX',
+        tags: ['Conditie', 'Kracht'],
         type: 'training'
       },
       {
@@ -425,6 +442,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zondag 24 mei',
         time: '12:00-13:00',
         session: '30+ Kickboksen',
+        tags: ['Techniek', 'Sparren'],
         type: 'training'
       }
     ]
@@ -455,6 +473,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 30 mei',
         time: '08:45-10:00',
         session: 'PrepX',
+        tags: ['Conditie', 'Kracht'],
         type: 'training'
       },
       {
@@ -462,6 +481,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zondag 31 mei',
         time: '12:00-13:00',
         session: '30+ Kickboksen',
+        tags: ['Techniek', 'Sparren'],
         type: 'training'
       }
     ]

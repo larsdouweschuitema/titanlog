@@ -6,7 +6,7 @@
           Events
         </NuxtLink>
         <NuxtLink to="/logboek" class="app-nav-link" active-class="app-nav-link-active">
-          Logbook
+          Logboek
         </NuxtLink>
       </nav>
     </header>
