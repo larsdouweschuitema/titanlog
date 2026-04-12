@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { activeEvent } from '~/data/events'
 import { campLogs, getDailyTotals } from '~/data/logbook'
 
 const currentDate = new Date('2026-04-12T12:00:00')
@@ -183,7 +184,7 @@ const formatWeightDelta = (value: number) => {
 
           <div class="day-card-footer">
             <NuxtLink
-              :to="`/#day-${log.date}`"
+              :to="`/events/${activeEvent.id}#day-${log.date}`"
               class="day-icon-link"
               aria-label="Ga naar trainingsoverzicht voor deze dag"
               title="Ga naar trainingsoverzicht"
