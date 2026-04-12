@@ -104,6 +104,7 @@ const buildWeek = ({
       dayLabel: getDayLabelForOffset(1),
       time: '20:00-21:00',
       session: 'Wedstrijdgroep Kickboksen',
+      detail: 'Benito',
       type: 'training'
     })
   }
@@ -124,6 +125,7 @@ const buildWeek = ({
       dayLabel: getDayLabelForOffset(3),
       time: '20:00-21:00',
       session: 'Wedstrijdgroep Kickboksen',
+      detail: 'Benito',
       type: 'training'
     })
   }
