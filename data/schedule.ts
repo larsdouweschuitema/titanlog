@@ -169,6 +169,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Vrijdag 10 apr',
         time: '19:00-20:30',
         session: 'Sparren',
+        detail: 'Treffel',
         type: 'training',
         notes: [
           'Iets later ingestroomd rond 19:15 door een misverstand over de begintijd, waardoor ik een deel van de warming-up heb gemist.',
@@ -184,6 +185,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 11 apr',
         time: '08:45-10:00',
         session: 'PrepX',
+        detail: 'Treffel',
         type: 'training',
         notes: [
           'Alle onderdelen uitgevoerd in blokken van 4 keer 1 minuut.',
@@ -201,6 +203,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zondag 12 apr',
         time: '12:00-13:00',
         session: '30+ Kickboksen',
+        detail: 'Gerven + Charles',
         type: 'training',
         notes: [
           'Warming-up met lopen op de plaats, stoten naar voren en omhoog, knieën, oplopende sprints en schaduwboksen met push-ups, squats en sit-ups op commando.',
@@ -247,7 +250,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Donderdag 16 apr',
         time: '10:00-11:00',
         session: 'Personal training',
-        detail: 'Treffel Veerkamp (FitbyTreff)',
+        detail: 'Treffel',
         type: 'training'
       },
       {
@@ -273,6 +276,13 @@ export const scheduleWeeks: ScheduleWeek[] = [
     includeThursdayFightTeam: true,
     includeFridaySparring: true,
     extraEntries: [
+      {
+        date: '2026-04-20',
+        dayLabel: 'Maandag 20 apr',
+        time: 'Hele dag',
+        session: 'Bezet',
+        type: 'constraint'
+      },
       {
         date: '2026-04-25',
         dayLabel: 'Zaterdag 25 apr',
