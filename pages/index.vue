@@ -9,8 +9,14 @@ type NoteEntry = {
   session: string
   notes: string[]
 }
+type ShareableEntry = {
+  date: string
+  dayLabel: string
+  time: string
+  session: string
+}
 
-const currentDate = new Date('2026-04-11T12:00:00')
+const currentDate = new Date('2026-04-12T12:00:00')
 const fightDate = new Date('2026-06-07T12:00:00')
 const allEntries = scheduleWeeks.flatMap((week) => week.entries)
 const openTrainingCount = allEntries.filter((entry) => entry.type === 'open' && entry.date >= currentDate.toISOString().slice(0, 10)).length
@@ -27,8 +33,13 @@ const currentDateKey = currentDate.toISOString().slice(0, 10)
 const isPastEntry = (date: string) => date <= currentDateKey
 const getEntryType = (entry: { date: string; type: string }) =>
   entry.type === 'training' && isPastEntry(entry.date) ? 'completed' : entry.type
-const getEntryLabel = (entry: { date: string; type: string }) =>
-  entry.type === 'training' && isPastEntry(entry.date) ? 'Voltooid' : typeLabels[entry.type as keyof typeof typeLabels]
+const getEntryLabel = (entry: { date: string; type: string }) => {
+  if (entry.type === 'training') {
+    return isPastEntry(entry.date) ? 'Voltooid' : ''
+  }
+
+  return typeLabels[entry.type as keyof typeof typeLabels]
+}
 const isCompletedTraining = (entry: { date: string; type: string }) =>
   entry.type === 'training' && isPastEntry(entry.date)
 const statusFilters = [
@@ -56,6 +67,10 @@ const toggleFilter = (filterKey: DisplayStatus) => {
   activeFilters.value = updated.length > 0 ? updated : ['all']
 }
 
+const showOpenTrainingOptions = () => {
+  activeFilters.value = ['open']
+}
+
 const isFilterActive = (filterKey: DisplayStatus) => activeFilters.value.includes(filterKey)
 const matchesActiveFilters = (entry: { date: string; type: string }) => {
   if (activeFilters.value.includes('all')) return true
@@ -80,41 +95,55 @@ const closeNotes = () => {
   selectedNoteEntry.value = null
 }
 
-const weekCards = computed(() => scheduleWeeks.map((week) => {
-  const visibleEntries = week.entries.filter((entry) => !recurringConstraintSessions.has(entry.session))
-  const filteredEntries = visibleEntries.filter((entry) => matchesActiveFilters(entry))
+const getWhatsappShareUrl = (entry: ShareableEntry) => {
+  const message = [
+    'Hi Lars, ik kan deze trainingsoptie oppakken:',
+    `${entry.dayLabel}`,
+    `${entry.time}`,
+    '',
+    'Laat maar weten of je dit wilt inboeken.'
+  ].join('\n')
 
-  const sortedEntries = [...filteredEntries].sort((a, b) => {
-    const dateCompare = a.date.localeCompare(b.date)
-    if (dateCompare !== 0) return dateCompare
+  return `https://wa.me/?text=${encodeURIComponent(message)}`
+}
 
-    return getTimeOrder(a.time) - getTimeOrder(b.time)
-  })
+const weekCards = computed(() => scheduleWeeks
+  .map((week) => {
+    const visibleEntries = week.entries.filter((entry) => !recurringConstraintSessions.has(entry.session))
+    const filteredEntries = visibleEntries.filter((entry) => matchesActiveFilters(entry))
 
-  const groupedDays = sortedEntries.reduce<Array<{ dayLabel: string; entries: typeof sortedEntries; isPastDay: boolean }>>((acc, entry) => {
-    const lastGroup = acc[acc.length - 1]
+    const sortedEntries = [...filteredEntries].sort((a, b) => {
+      const dateCompare = a.date.localeCompare(b.date)
+      if (dateCompare !== 0) return dateCompare
 
-    if (lastGroup && lastGroup.dayLabel === entry.dayLabel) {
-      lastGroup.entries.push(entry)
-      lastGroup.isPastDay = lastGroup.entries.every((groupEntry) => isCompletedTraining(groupEntry))
-      return acc
-    }
-
-    acc.push({
-      dayLabel: entry.dayLabel,
-      entries: [entry],
-      isPastDay: isCompletedTraining(entry)
+      return getTimeOrder(a.time) - getTimeOrder(b.time)
     })
 
-    return acc
-  }, [])
+    const groupedDays = sortedEntries.reduce<Array<{ dayLabel: string; entries: typeof sortedEntries; isPastDay: boolean }>>((acc, entry) => {
+      const lastGroup = acc[acc.length - 1]
 
-  return {
-    ...week,
-    isPastWeek: sortedEntries.length > 0 && sortedEntries[sortedEntries.length - 1].date < currentDateKey,
-    groupedDays
-  }
-}))
+      if (lastGroup && lastGroup.dayLabel === entry.dayLabel) {
+        lastGroup.entries.push(entry)
+        lastGroup.isPastDay = lastGroup.entries.every((groupEntry) => isCompletedTraining(groupEntry))
+        return acc
+      }
+
+      acc.push({
+        dayLabel: entry.dayLabel,
+        entries: [entry],
+        isPastDay: isCompletedTraining(entry)
+      })
+
+      return acc
+    }, [])
+
+    return {
+      ...week,
+      isPastWeek: sortedEntries.length > 0 && sortedEntries[sortedEntries.length - 1].date < currentDateKey,
+      groupedDays
+    }
+  })
+  .filter((week) => week.groupedDays.length > 0))
 </script>
 
 <template>
@@ -136,13 +165,18 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
       </div>
 
       <div class="stats-row">
-        <div>
+        <button
+          type="button"
+          class="stats-card stats-card-action"
+          :class="{ 'stats-card-active': isFilterActive('open') }"
+          @click="showOpenTrainingOptions"
+        >
           <strong>{{ openTrainingCount }}</strong>
           <span>nog boekbare trainingsopties</span>
-        </div>
-        <div>
+        </button>
+        <div class="stats-card">
           <strong>{{ weeksUntilFight }}</strong>
-          <span>weken tot Almere's Finest vanaf 11 april 2026</span>
+          <span>weken resterend</span>
         </div>
       </div>
 
@@ -201,7 +235,10 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
             v-for="(entry, entryIndex) in day.entries"
             :key="`${week.title}-${day.dayLabel}-${entryIndex}-${entry.time}`"
             class="time-block"
-            :class="{ 'time-block-clickable': entry.notes?.length }"
+            :class="{
+              'time-block-clickable': entry.notes?.length,
+              'time-block-constraint': getEntryType(entry) === 'constraint'
+            }"
             :tabindex="entry.notes?.length ? 0 : undefined"
             :role="entry.notes?.length ? 'button' : undefined"
             @click="entry.notes?.length ? openNotes(entry as NoteEntry) : undefined"
@@ -210,34 +247,30 @@ const weekCards = computed(() => scheduleWeeks.map((week) => {
           >
             <div class="time-block-top">
               <span class="time-label">{{ entry.time }}</span>
-              <span class="status-pill" :data-type="getEntryType(entry)">
+              <span v-if="getEntryLabel(entry)" class="status-pill" :data-type="getEntryType(entry)">
                 {{ getEntryLabel(entry) }}
               </span>
             </div>
 
             <strong class="session-label">{{ entry.session }}</strong>
+            <span v-if="entry.detail" class="session-detail">{{ entry.detail }}</span>
+            <a
+              v-if="entry.type === 'open'"
+              :href="getWhatsappShareUrl(entry)"
+              class="share-link"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Deel deze trainingsoptie via WhatsApp"
+            >
+              <svg class="share-link-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path fill="currentColor" d="M19.05 4.94A9.77 9.77 0 0 0 12.09 2C6.66 2 2.23 6.39 2.23 11.81c0 1.74.46 3.43 1.34 4.92L2 22l5.42-1.51a9.87 9.87 0 0 0 4.67 1.19h.01c5.43 0 9.86-4.39 9.86-9.81a9.7 9.7 0 0 0-2.91-6.93Zm-6.96 15.08h-.01a8.2 8.2 0 0 1-4.17-1.14l-.3-.18-3.21.9.86-3.12-.2-.32a8.1 8.1 0 0 1-1.25-4.34c0-4.5 3.71-8.16 8.27-8.16a8.2 8.2 0 0 1 5.86 2.43 8.04 8.04 0 0 1 2.42 5.73c0 4.5-3.71 8.16-8.27 8.16Zm4.48-6.12c-.24-.12-1.43-.7-1.66-.78-.22-.08-.38-.12-.54.12-.16.23-.62.78-.76.94-.14.16-.28.18-.52.06-.24-.12-1-.37-1.91-1.18-.7-.63-1.17-1.4-1.31-1.63-.14-.23-.01-.35.1-.47.1-.1.24-.27.36-.41.12-.14.16-.23.24-.39.08-.16.04-.29-.02-.41-.06-.12-.54-1.29-.74-1.77-.2-.47-.4-.41-.54-.42h-.46c-.16 0-.41.06-.62.29-.22.23-.84.82-.84 2s.86 2.31.98 2.47c.12.16 1.69 2.68 4.16 3.65.59.25 1.05.39 1.41.5.59.18 1.13.16 1.55.1.47-.07 1.43-.58 1.64-1.13.2-.55.2-1.02.14-1.12-.05-.1-.2-.16-.44-.27Z" />
+              </svg>
+              Deel via WhatsApp
+            </a>
             <span v-if="entry.notes?.length" class="notes-trigger">
               Bekijk notities
             </span>
           </div>
-
-          <div class="day-card-footer">
-            <NuxtLink
-              :to="`/logboek#day-${day.entries[0].date}`"
-              class="day-icon-link"
-              aria-label="Ga naar logboek voor deze dag"
-              title="Ga naar logboek"
-            >
-              🍽
-            </NuxtLink>
-          </div>
-        </article>
-
-        <article
-          v-if="week.groupedDays.length === 0"
-          class="day-card day-card-empty"
-        >
-          <h3>Geen sessies in deze filter</h3>
         </article>
       </div>
     </section>

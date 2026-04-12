@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { campLogs, getDailyTotals } from '~/data/logbook'
 
-const currentDate = new Date('2026-04-11T12:00:00')
+const currentDate = new Date('2026-04-12T12:00:00')
 const todayKey = currentDate.toISOString().slice(0, 10)
 const goalWeightKg = 95
 const startWeightKg = 86.8

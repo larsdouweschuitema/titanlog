@@ -11,6 +11,7 @@ export type ScheduleEntry = {
   dayLabel: string
   time: string
   session: string
+  detail?: string
   type: ScheduleType
   notes?: string[]
 }
@@ -168,7 +169,15 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Vrijdag 10 apr',
         time: '19:00-20:30',
         session: 'Sparren',
-        type: 'training'
+        type: 'training',
+        notes: [
+          'Iets later ingestroomd rond 19:15 door een misverstand over de begintijd, waardoor ik een deel van de warming-up heb gemist.',
+          'Gestart met vijf boksrondes.',
+          'Aanvankelijk richting het hoofd gespard ondanks mijn gevoelige neus; in de tweede ronde direct een bloedneus gekregen, waarna ik alleen nog op het lichaam heb gespard.',
+          'Verder technisch gespard, met iets meer intensiteit op het lichaam.',
+          'Afgesloten met 200 buikspieroefeningen in verschillende vormen, 25 herhalingen per persoon.',
+          'Tot slot kort gerekt en gestrekt.'
+        ]
       },
       {
         date: '2026-04-11',
@@ -177,14 +186,14 @@ export const scheduleWeeks: ScheduleWeek[] = [
         session: 'PrepX',
         type: 'training',
         notes: [
-          'Alles 4x 1min',
-          'Back squats 50kg',
-          'Ski jump-squads',
-          'Slam ball 12kg',
-          'Battle rope-Burpee',
-          'Treadmill > Sprint',
-          'Ketlebell 16kg overhead',
-          'Hang clean and press 2.5 kg beide kant met stang'
+          'Alle onderdelen uitgevoerd in blokken van 4 keer 1 minuut.',
+          'Back squats op 50 kg.',
+          'Ski jump squats.',
+          'Slam ball op 12 kg.',
+          'Battle rope gecombineerd met burpees.',
+          'Treadmill met sprintintervallen.',
+          'Overhead kettlebell work op 16 kg.',
+          'Hang clean and press met stang en 2,5 kg per kant.'
         ]
       },
       {
@@ -192,7 +201,15 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zondag 12 apr',
         time: '12:00-13:00',
         session: '30+ Kickboksen',
-        type: 'training'
+        type: 'training',
+        notes: [
+          'Warming-up met lopen op de plaats, stoten naar voren en omhoog, knieën, oplopende sprints en schaduwboksen met push-ups, squats en sit-ups op commando.',
+          'Links/rechts combinaties over en weer op tempo.',
+          'Links/rechts gevolgd door slip, counterjab, hoek en linker low kick.',
+          'Links/rechts gevolgd door linkerknie met actieve handpositie en daarna rechterknie met handverplaatsing.',
+          'Counterstoot ontwijken en uitstappen naar links met schouderrotatie.',
+          'Afsluitend 20 minuten sparren op het lichaam vanwege herstel van mijn gebroken neus.'
+        ]
       }
     ]
   }),
@@ -200,7 +217,6 @@ export const scheduleWeeks: ScheduleWeek[] = [
     title: 'Week 16',
     rangeLabel: 'ma 13 apr - zo 19 apr',
     weekStartDate: '2026-04-13',
-    includeTuesdayFightTeam: true,
     includeWednesdayFightTeam: true,
     includeThursdayFightTeam: true,
     includeFridaySparring: true,
@@ -208,6 +224,13 @@ export const scheduleWeeks: ScheduleWeek[] = [
       {
         date: '2026-04-13',
         dayLabel: 'Maandag 13 apr',
+        time: 'Hele dag',
+        session: 'Bezet',
+        type: 'constraint'
+      },
+      {
+        date: '2026-04-14',
+        dayLabel: 'Dinsdag 14 apr',
         time: 'Hele dag',
         session: 'Bezet',
         type: 'constraint'
@@ -223,7 +246,22 @@ export const scheduleWeeks: ScheduleWeek[] = [
         date: '2026-04-16',
         dayLabel: 'Donderdag 16 apr',
         time: '10:00-11:00',
-        session: 'Personal training FitByTreff',
+        session: 'Personal training',
+        detail: 'Treffel Veerkamp (FitbyTreff)',
+        type: 'training'
+      },
+      {
+        date: '2026-04-18',
+        dayLabel: 'Zaterdag 18 apr',
+        time: '08:45-10:00',
+        session: 'PrepX',
+        type: 'training'
+      },
+      {
+        date: '2026-04-19',
+        dayLabel: 'Zondag 19 apr',
+        time: '12:00-13:00',
+        session: '30+ Kickboksen',
         type: 'training'
       }
     ]
@@ -233,7 +271,23 @@ export const scheduleWeeks: ScheduleWeek[] = [
     rangeLabel: 'ma 20 apr - zo 26 apr',
     weekStartDate: '2026-04-20',
     includeThursdayFightTeam: true,
-    includeFridaySparring: true
+    includeFridaySparring: true,
+    extraEntries: [
+      {
+        date: '2026-04-25',
+        dayLabel: 'Zaterdag 25 apr',
+        time: '08:45-10:00',
+        session: 'PrepX',
+        type: 'training'
+      },
+      {
+        date: '2026-04-26',
+        dayLabel: 'Zondag 26 apr',
+        time: 'Hele dag',
+        session: 'Bezet',
+        type: 'constraint'
+      }
+    ]
   }),
   buildWeek({
     title: 'Week 18',
@@ -241,7 +295,23 @@ export const scheduleWeeks: ScheduleWeek[] = [
     weekStartDate: '2026-04-27',
     includeWednesdayFightTeam: true,
     includeThursdayFightTeam: true,
-    includeFridaySparring: true
+    includeFridaySparring: true,
+    extraEntries: [
+      {
+        date: '2026-04-29',
+        dayLabel: 'Woensdag 29 apr',
+        time: '11:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      },
+      {
+        date: '2026-04-30',
+        dayLabel: 'Donderdag 30 apr',
+        time: '11:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      }
+    ]
   }),
   buildWeek({
     title: 'Week 19',
@@ -249,7 +319,23 @@ export const scheduleWeeks: ScheduleWeek[] = [
     weekStartDate: '2026-05-04',
     includeWednesdayFightTeam: true,
     includeThursdayFightTeam: true,
-    includeFridaySparring: true
+    includeFridaySparring: true,
+    extraEntries: [
+      {
+        date: '2026-05-06',
+        dayLabel: 'Woensdag 06 mei',
+        time: '12:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      },
+      {
+        date: '2026-05-07',
+        dayLabel: 'Donderdag 07 mei',
+        time: '12:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      }
+    ]
   }),
   buildWeek({
     title: 'Week 20',
@@ -267,6 +353,27 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '12:00-13:00',
         session: 'Boekbare trainingsoptie',
         type: 'open'
+      },
+      {
+        date: '2026-05-14',
+        dayLabel: 'Donderdag 14 mei',
+        time: '10:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      },
+      {
+        date: '2026-05-16',
+        dayLabel: 'Zaterdag 16 mei',
+        time: '08:45-10:00',
+        session: 'PrepX',
+        type: 'training'
+      },
+      {
+        date: '2026-05-17',
+        dayLabel: 'Zondag 17 mei',
+        time: '12:00-13:00',
+        session: '30+ Kickboksen',
+        type: 'training'
       }
     ]
   }),
@@ -283,9 +390,30 @@ export const scheduleWeeks: ScheduleWeek[] = [
       {
         date: '2026-05-20',
         dayLabel: 'Woensdag 20 mei',
-        time: '12:00-13:00',
+        time: '12:00-14:00',
         session: 'Boekbare trainingsoptie',
         type: 'open'
+      },
+      {
+        date: '2026-05-21',
+        dayLabel: 'Donderdag 21 mei',
+        time: '12:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      },
+      {
+        date: '2026-05-23',
+        dayLabel: 'Zaterdag 23 mei',
+        time: '08:45-10:00',
+        session: 'PrepX',
+        type: 'training'
+      },
+      {
+        date: '2026-05-24',
+        dayLabel: 'Zondag 24 mei',
+        time: '12:00-13:00',
+        session: '30+ Kickboksen',
+        type: 'training'
       }
     ]
   }),
@@ -294,7 +422,37 @@ export const scheduleWeeks: ScheduleWeek[] = [
     rangeLabel: 'ma 25 mei - zo 31 mei',
     weekStartDate: '2026-05-25',
     includeThursdayFightTeam: true,
-    includeFridaySparring: true
+    includeFridaySparring: true,
+    extraEntries: [
+      {
+        date: '2026-05-27',
+        dayLabel: 'Woensdag 27 mei',
+        time: '10:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      },
+      {
+        date: '2026-05-28',
+        dayLabel: 'Donderdag 28 mei',
+        time: '12:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
+      },
+      {
+        date: '2026-05-30',
+        dayLabel: 'Zaterdag 30 mei',
+        time: '08:45-10:00',
+        session: 'PrepX',
+        type: 'training'
+      },
+      {
+        date: '2026-05-31',
+        dayLabel: 'Zondag 31 mei',
+        time: '12:00-13:00',
+        session: '30+ Kickboksen',
+        type: 'training'
+      }
+    ]
   }),
   buildWeek({
     title: 'Week 23',
@@ -305,9 +463,16 @@ export const scheduleWeeks: ScheduleWeek[] = [
     includeFridaySparring: true,
     extraEntries: [
       {
+        date: '2026-06-06',
+        dayLabel: 'Zaterdag 06 jun',
+        time: 'Hele dag',
+        session: 'Weging',
+        type: 'event'
+      },
+      {
         date: '2026-06-07',
         dayLabel: 'Zondag 07 jun',
-        time: 'Nog te bepalen',
+        time: 'Hele dag',
         session: 'Almere’s Finest',
         type: 'event'
       }
