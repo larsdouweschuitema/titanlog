@@ -232,7 +232,6 @@ export const scheduleWeeks: ScheduleWeek[] = [
     title: 'Week 16',
     rangeLabel: 'ma 13 apr - zo 19 apr',
     weekStartDate: '2026-04-13',
-    includeThursdayFightTeam: true,
     includeFridaySparring: true,
     extraEntries: [
       {
@@ -266,6 +265,15 @@ export const scheduleWeeks: ScheduleWeek[] = [
           'Afgesloten met 2 minuten duo-werk op de buik en links-rechts aanspelen.',
           'Core-finisher met 1 minuut knipscharen en 1 minuut statische buikspanning met gecontroleerde op-en-neer bewegingen.'
         ]
+      },
+      {
+        date: '2026-04-16',
+        dayLabel: 'Donderdag 16 apr',
+        time: '20:00-21:00',
+        session: 'Wedstrijdgroep Kickboksen',
+        detail: 'Treffel',
+        tags: ['Techniek'],
+        type: 'training'
       },
       {
         date: '2026-04-16',
