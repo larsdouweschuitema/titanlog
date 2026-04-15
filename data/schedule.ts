@@ -232,7 +232,6 @@ export const scheduleWeeks: ScheduleWeek[] = [
     title: 'Week 16',
     rangeLabel: 'ma 13 apr - zo 19 apr',
     weekStartDate: '2026-04-13',
-    includeWednesdayFightTeam: true,
     includeThursdayFightTeam: true,
     includeFridaySparring: true,
     extraEntries: [
@@ -253,9 +252,20 @@ export const scheduleWeeks: ScheduleWeek[] = [
       {
         date: '2026-04-15',
         dayLabel: 'Woensdag 15 apr',
-        time: '12:00-13:00',
-        session: 'Boekbare trainingsoptie',
-        type: 'open'
+        time: '19:30-21:00',
+        session: 'Wedstrijdgroep Kickboksen',
+        tags: ['Techniek'],
+        type: 'training',
+        notes: [
+          'Warming-up met directe stoten, opstoten en lichaamstrappen, gevolgd door tempowisselingen in duo.',
+          'Technische combinaties eerst rustig opgebouwd en daarna in blokken van 30 herhalingen op tel van de trainer uitgevoerd.',
+          'Extra rondes met jab-directe door het midden en direct-hoek om timing en zuiverheid aan te scherpen.',
+          'Combinatie: jab, jab low kick, direct, opstoot, hoek, low kick.',
+          'Combinatie: jab, switch right body kick, directe, hoek, switch right body kick.',
+          'Combinatie: links, rechts, hoek, leverstoot, knie.',
+          'Afgesloten met 2 minuten duo-werk op de buik en links-rechts aanspelen.',
+          'Core-finisher met 1 minuut knipscharen en 1 minuut statische buikspanning met gecontroleerde op-en-neer bewegingen.'
+        ]
       },
       {
         date: '2026-04-16',
