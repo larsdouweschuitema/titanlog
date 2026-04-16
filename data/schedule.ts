@@ -14,6 +14,7 @@ export type ScheduleEntry = {
   session: string
   detail?: string
   type: ScheduleType
+  completed?: boolean
   tags?: TrainingTag[]
   notes?: string[]
 }
@@ -281,6 +282,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '10:00-11:00',
         session: 'Personal training',
         detail: 'Treffel',
+        completed: true,
         tags: ['Conditie', 'Kracht'],
         type: 'training'
       },

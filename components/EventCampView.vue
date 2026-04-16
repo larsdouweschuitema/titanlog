@@ -21,12 +21,13 @@ type TagCount = {
   tag: TrainingTag
   count: number
 }
+type SchedulableEntry = Pick<ScheduleEntry, 'date' | 'type' | 'completed'>
 
 const props = defineProps<{
   event: FightEvent
 }>()
 
-const currentDate = new Date('2026-04-15T12:00:00')
+const currentDate = new Date('2026-04-16T12:00:00')
 const eventDate = new Date(`${props.event.date}T12:00:00`)
 const allEntries = props.event.weeks.flatMap((week) => week.entries)
 const openTrainingCount = allEntries.filter((entry) => entry.type === 'open' && entry.date >= currentDate.toISOString().slice(0, 10)).length
@@ -40,18 +41,19 @@ const fixedConstraints = [
   'Vrijdag: 09:00-17:00 bezet'
 ]
 const currentDateKey = currentDate.toISOString().slice(0, 10)
-const isPastEntry = (date: string) => date <= currentDateKey
-const getEntryType = (entry: { date: string; type: string }) =>
-  entry.type === 'training' && isPastEntry(entry.date) ? 'completed' : entry.type
-const getEntryLabel = (entry: { date: string; type: string }) => {
+const isPastEntry = (date: string) => date < currentDateKey
+const isCompletedEntry = (entry: SchedulableEntry) =>
+  entry.type === 'training' && (entry.completed || isPastEntry(entry.date))
+const getEntryType = (entry: SchedulableEntry) =>
+  isCompletedEntry(entry) ? 'completed' : entry.type
+const getEntryLabel = (entry: SchedulableEntry) => {
   if (entry.type === 'training') {
-    return isPastEntry(entry.date) ? 'Voltooid' : ''
+    return isCompletedEntry(entry) ? 'Voltooid' : ''
   }
 
   return typeLabels[entry.type as keyof typeof typeLabels]
 }
-const isCompletedTraining = (entry: { date: string; type: string }) =>
-  entry.type === 'training' && isPastEntry(entry.date)
+const isCompletedTraining = (entry: SchedulableEntry) => isCompletedEntry(entry)
 const statusFilters = [
   { key: 'all' as const, label: 'Alles' },
   { key: 'training' as const, label: 'Aankomend' },
@@ -82,7 +84,7 @@ const showOpenTrainingOptions = () => {
 }
 
 const isFilterActive = (filterKey: DisplayStatus) => activeFilters.value.includes(filterKey)
-const matchesActiveFilters = (entry: { date: string; type: string }) => {
+const matchesActiveFilters = (entry: SchedulableEntry) => {
   if (activeFilters.value.includes('all')) return true
   return activeFilters.value.includes(getEntryType(entry) as DisplayStatus)
 }
