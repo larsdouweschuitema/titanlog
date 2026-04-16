@@ -284,7 +284,12 @@ export const scheduleWeeks: ScheduleWeek[] = [
         detail: 'Treffel',
         completed: true,
         tags: ['Conditie', 'Kracht'],
-        type: 'training'
+        type: 'training',
+        notes: [
+          'Barbell bench press met 2 x 10 kg plus stang: 10 reguliere herhalingen, gevolgd door 10 herhalingen met per rep een korte press en daarna een volledige lock-out.',
+          'Barbell bench press met 2 x 5 kg plus stang in tempowerk: explosief omhoog, daarna 3 seconden gecontroleerd laten zakken en direct opnieuw uitstoten.',
+          'Cable punch drill op 15 kg met jab-directe combinaties voor kracht en explosiviteit.'
+        ]
       },
       {
         date: '2026-04-18',
