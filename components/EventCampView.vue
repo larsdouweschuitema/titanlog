@@ -27,7 +27,7 @@ const props = defineProps<{
   event: FightEvent
 }>()
 
-const currentDate = new Date('2026-04-16T12:00:00')
+const currentDate = new Date('2026-04-17T12:00:00')
 const eventDate = new Date(`${props.event.date}T12:00:00`)
 const allEntries = props.event.weeks.flatMap((week) => week.entries)
 const openTrainingCount = allEntries.filter((entry) => entry.type === 'open' && entry.date >= currentDate.toISOString().slice(0, 10)).length
