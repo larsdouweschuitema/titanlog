@@ -296,6 +296,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zaterdag 18 apr',
         time: '08:45-10:00',
         session: 'PrepX',
+        completed: true,
         tags: ['Conditie', 'Kracht'],
         type: 'training'
       },
