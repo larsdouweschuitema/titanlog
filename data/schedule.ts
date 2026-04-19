@@ -233,7 +233,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
     title: 'Week 16',
     rangeLabel: 'ma 13 apr - zo 19 apr',
     weekStartDate: '2026-04-13',
-    includeFridaySparring: true,
+    includeFridaySparring: false,
     extraEntries: [
       {
         date: '2026-04-13',
@@ -290,6 +290,15 @@ export const scheduleWeeks: ScheduleWeek[] = [
           'Barbell bench press met 2 x 5 kg plus stang in tempowerk: explosief omhoog, daarna 3 seconden gecontroleerd laten zakken en direct opnieuw uitstoten.',
           'Cable punch drill op 15 kg met jab-directe combinaties voor kracht en explosiviteit.'
         ]
+      },
+      {
+        date: '2026-04-17',
+        dayLabel: 'Vrijdag 17 apr',
+        time: '19:00-20:30',
+        session: 'Sparren',
+        completed: true,
+        tags: ['Sparren'],
+        type: 'training'
       },
       {
         date: '2026-04-18',
