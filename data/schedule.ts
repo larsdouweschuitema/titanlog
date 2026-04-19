@@ -329,8 +329,19 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Zondag 19 apr',
         time: '12:00-13:00',
         session: '30+ Kickboksen',
-        tags: ['Techniek', 'Sparren'],
-        type: 'training'
+        completed: true,
+        tags: ['Sparren'],
+        type: 'training',
+        notes: [
+          'De volledige training bestond uit een uur sparren, zonder techniekblok.',
+          'We begonnen met 2 rondes zelfstandig schaduwboksen als warming-up.',
+          'Daarna volgden 2 rondes benen tikken met de handen om afstand, timing en reacties te activeren.',
+          'Vervolgens 5 rondes bokssparren.',
+          'Daarna 1 ronde van 3 minuten waarbij steeds 1 minuut de ene deelnemer alleen bokste en de andere alleen trapte; in de laatste minuut werkte iedereen compleet.',
+          'Aansluitend meerdere rondes bokssparren van 3 minuten, waarbij telkens 1 deelnemer alleen met de jab-hand werkte en de ander beide handen gebruikte; in de laatste minuut werd er volledig gebokst.',
+          'De laatste rondes werden volledig kickboksend uitgespart.',
+          'Afgesloten met een rustige cooling-down in de vorm van een ontspannen ronde schaduwboksen.'
+        ]
       }
     ]
   }),
