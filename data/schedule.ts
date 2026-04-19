@@ -296,18 +296,33 @@ export const scheduleWeeks: ScheduleWeek[] = [
         dayLabel: 'Vrijdag 17 apr',
         time: '19:00-20:30',
         session: 'Sparren',
+        detail: 'Treffel',
         completed: true,
         tags: ['Sparren'],
-        type: 'training'
+        type: 'training',
+        notes: [
+          'Warming-up met 2 rondes van 3 minuten schaduwboksen.',
+          'Daarna 3 minuten mobiliteit en dynamisch rekken.',
+          'Vervolgens 5 rondes bokssparren.',
+          'Aansluitend 7 rondes kickbokssparren.',
+          'Afgesloten met 5 minuten uitlopen, rekken en strekken.'
+        ]
       },
       {
         date: '2026-04-18',
         dayLabel: 'Zaterdag 18 apr',
         time: '08:45-10:00',
         session: 'PrepX',
+        detail: 'Treffel',
         completed: true,
         tags: ['Conditie', 'Kracht'],
-        type: 'training'
+        type: 'training',
+        notes: [
+          'Warming-up met één groot rondje hardlopen.',
+          'Daarna een circuittraining waarbij elk onderdeel 6 minuten duurde, in intervallen van 30 seconden werk en 30 seconden rust.',
+          'Na elk blok van 6 minuten volgde opnieuw een hardloopronde.',
+          'Onderdelen: roeien, wall balls met 9 kg, prowler sled push met 125 kg, thrusters met 30 kg en ski-erg op niveau 5.'
+        ]
       },
       {
         date: '2026-04-19',
