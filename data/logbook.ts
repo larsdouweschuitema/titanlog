@@ -26,7 +26,16 @@ export type DailyLog = {
 const campStart = new Date('2026-04-10T12:00:00')
 const campEnd = new Date('2026-06-07T12:00:00')
 
-const seedLogs: Record<string, Omit<DailyLog, 'date' | 'dayLabel' | 'weekTitle'>> = {}
+const seedLogs: Record<string, Omit<DailyLog, 'date' | 'dayLabel' | 'weekTitle'>> = {
+  '2026-04-19': {
+    meals: {},
+    weightKg: 90.2
+  },
+  '2026-04-21': {
+    meals: {},
+    weightKg: 91
+  }
+}
 
 const dayFormatter = new Intl.DateTimeFormat('nl-NL', {
   weekday: 'long',
