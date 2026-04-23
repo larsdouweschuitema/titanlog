@@ -372,9 +372,19 @@ export const scheduleWeeks: ScheduleWeek[] = [
       {
         date: '2026-04-23',
         dayLabel: 'Donderdag 23 apr',
-        time: '12:00-14:00',
-        session: 'Boekbare trainingsoptie',
-        type: 'open'
+        time: '13:00-14:00',
+        session: 'Krachttraining',
+        detail: 'Zelfstandig',
+        completed: true,
+        tags: ['Kracht'],
+        type: 'training',
+        notes: [
+          'Zelfstandig getraind zonder trainer.',
+          'Warming-up: 3 minuten airbike, 3 minuten roeien, 3 minuten ski en 2 x 15 herhalingen barbell bench press met 20 kg.',
+          'Barbell bench press met 20 kg stang + 2 x 10 kg: 10 normale herhalingen, gevolgd door 10 herhalingen met korte press plus volledige herhaling, 3 sets totaal.',
+          'Barbell bench press met 20 kg stang + 2 x 5 kg: 15 herhalingen explosief uitstoten en 3 seconden gecontroleerd terug, 3 sets totaal.',
+          'Cable punch drill op 15 kg met jab-directe combinaties in southpaw stand, 15 herhalingen per kant.'
+        ]
       },
       {
         date: '2026-04-25',
