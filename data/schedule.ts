@@ -349,6 +349,8 @@ export const scheduleWeeks: ScheduleWeek[] = [
     title: 'Week 17',
     rangeLabel: 'ma 20 apr - zo 26 apr',
     weekStartDate: '2026-04-20',
+    includeTuesdayFightTeam: true,
+    includeWednesdayFightTeam: false,
     includeThursdayFightTeam: true,
     includeFridaySparring: true,
     extraEntries: [
@@ -358,6 +360,21 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: 'Hele dag',
         session: 'Bezet',
         type: 'constraint'
+      },
+      {
+        date: '2026-04-22',
+        dayLabel: 'Woensdag 22 apr',
+        time: 'Hele dag',
+        session: 'Ziek, geen training',
+        detail: 'Op 22 april was ik ziek, dus de training ging niet door.',
+        type: 'constraint'
+      },
+      {
+        date: '2026-04-23',
+        dayLabel: 'Donderdag 23 apr',
+        time: '12:00-14:00',
+        session: 'Boekbare trainingsoptie',
+        type: 'open'
       },
       {
         date: '2026-04-25',
