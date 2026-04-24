@@ -8,6 +8,9 @@
         <NuxtLink to="/logboek" class="app-nav-link" active-class="app-nav-link-active">
           Logboek
         </NuxtLink>
+        <NuxtLink to="/trainingvoorbeelden" class="app-nav-link" active-class="app-nav-link-active">
+          Trainingvoorbeelden
+        </NuxtLink>
       </nav>
     </header>
 

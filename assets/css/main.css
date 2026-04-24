@@ -738,6 +738,24 @@ h1 {
   margin-top: 4px;
 }
 
+.training-example-card {
+  gap: 14px;
+}
+
+.training-example-section {
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.training-example-title {
+  margin-bottom: 8px;
+  color: var(--text);
+  font-size: 0.84rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
 .log-empty {
   margin-bottom: 0;
   color: var(--muted);
