@@ -351,7 +351,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
     weekStartDate: '2026-04-20',
     includeTuesdayFightTeam: true,
     includeWednesdayFightTeam: false,
-    includeThursdayFightTeam: true,
+    includeThursdayFightTeam: false,
     includeFridaySparring: true,
     extraEntries: [
       {
@@ -384,6 +384,31 @@ export const scheduleWeeks: ScheduleWeek[] = [
           'Barbell bench press met 20 kg stang + 2 x 10 kg: 10 normale herhalingen, gevolgd door 10 herhalingen met korte press plus volledige herhaling, 3 sets totaal.',
           'Barbell bench press met 20 kg stang + 2 x 5 kg: 15 herhalingen explosief uitstoten en 3 seconden gecontroleerd terug, 3 sets totaal.',
           'Cable punch drill op 15 kg met jab-directe combinaties in southpaw stand, 15 herhalingen per kant.'
+        ]
+      },
+      {
+        date: '2026-04-23',
+        dayLabel: 'Donderdag 23 apr',
+        time: '20:00-21:00',
+        session: 'Wedstrijdgroep Kickboksen',
+        detail: 'Benito',
+        completed: true,
+        tags: ['Techniek'],
+        type: 'training'
+      },
+      {
+        date: '2026-04-23',
+        dayLabel: 'Donderdag 23 apr',
+        time: '21:00-23:00',
+        session: 'Conditioning',
+        detail: 'Zelfstandig',
+        completed: true,
+        tags: ['Conditie'],
+        type: 'training',
+        notes: [
+          '1000 meter ski in 3:07.',
+          '1000 meter roeien in 3:27.',
+          'Airbike interval 10/10: 15 seconden werk, 45 seconden rust, 10 minuten totaal.'
         ]
       },
       {
