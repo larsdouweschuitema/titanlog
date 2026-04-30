@@ -425,7 +425,14 @@ export const scheduleWeeks: ScheduleWeek[] = [
         time: '08:45-10:00',
         session: 'PrepX',
         tags: ['Conditie', 'Kracht'],
-        type: 'training'
+        type: 'training',
+        notes: [
+          '2 rondes totaal.',
+          'Linkerkant per ronde: 100 jumping jacks, 90 mountain climbers, 80 skaters hops, 70 shoulder taps, 60 cycle crunches, 50 front lunges, 40 hip thrusters, 30 chin hops, 20 push-ups en 10 full burpees.',
+          'Na elke oefening aan de rechterkant thrusters: 10, 9, 8, 7, 6, 5, 4, 3, 2, 1.',
+          'Eerste ronde voltooid in 16 minuten.',
+          'Tweede ronde ook gedaan, maar niet getimed.'
+        ]
       },
       {
         date: '2026-04-25',
@@ -472,10 +479,21 @@ export const scheduleWeeks: ScheduleWeek[] = [
         date: '2026-04-30',
         dayLabel: 'Donderdag 30 apr',
         time: '11:30-12:00',
-        session: 'Training',
+        session: 'Krachttraining',
         detail: 'Met trainingspartner Nouh',
         completed: true,
-        type: 'training'
+        type: 'training',
+        notes: [
+          'Warming-up: 3 minuten airbike, 500 meter ski, 500 meter roeien en 2 rondes van 15 bench press met 20 kg.',
+          'Hoofdset bestond uit 5 rondes met als doel 20 rows op 40 kg, 15 thrusters op 25 kg en 20 bench press op 40 kg.',
+          'Ronde 1: 20 rows, 15 thrusters, 20 bench press.',
+          'Ronde 2: 20 rows, 15 thrusters, 20 bench press.',
+          'Ronde 3: 20 rows, 15 thrusters, 13 bench press, onder target.',
+          'Ronde 4: 20 rows, 15 thrusters, 14 bench press, onder target.',
+          'Ronde 5: 20 rows, 15 thrusters, 13 bench press, onder target.',
+          'Cooling down: 2 minuten airbike of running.',
+          'Rows en thrusters in alle rondes gehaald; bench press zakte vanaf ronde 3 naar 13, 14 en 13 in plaats van 20.'
+        ]
       },
       {
         date: '2026-04-30',
