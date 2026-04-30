@@ -482,6 +482,7 @@ export const scheduleWeeks: ScheduleWeek[] = [
         session: 'Krachttraining',
         detail: 'Met trainingspartner Nouh',
         completed: true,
+        tags: ['Kracht'],
         type: 'training',
         notes: [
           'Warming-up: 3 minuten airbike, 500 meter ski, 500 meter roeien en 2 rondes van 15 bench press met 20 kg.',
