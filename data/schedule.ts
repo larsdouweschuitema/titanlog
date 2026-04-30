@@ -412,11 +412,27 @@ export const scheduleWeeks: ScheduleWeek[] = [
         ]
       },
       {
+        date: '2026-04-24',
+        dayLabel: 'Vrijdag 24 apr',
+        time: '12:00-13:00',
+        session: 'Training',
+        completed: true,
+        type: 'training'
+      },
+      {
         date: '2026-04-25',
         dayLabel: 'Zaterdag 25 apr',
         time: '08:45-10:00',
         session: 'PrepX',
         tags: ['Conditie', 'Kracht'],
+        type: 'training'
+      },
+      {
+        date: '2026-04-25',
+        dayLabel: 'Zaterdag 25 apr',
+        time: '12:00-13:00',
+        session: 'Training',
+        completed: true,
         type: 'training'
       },
       {
@@ -432,23 +448,62 @@ export const scheduleWeeks: ScheduleWeek[] = [
     title: 'Week 18',
     rangeLabel: 'ma 27 apr - zo 03 mei',
     weekStartDate: '2026-04-27',
-    includeWednesdayFightTeam: true,
-    includeThursdayFightTeam: true,
+    includeWednesdayFightTeam: false,
+    includeThursdayFightTeam: false,
     includeFridaySparring: true,
     extraEntries: [
       {
         date: '2026-04-29',
         dayLabel: 'Woensdag 29 apr',
-        time: '11:00-14:00',
-        session: 'Boekbare trainingsoptie',
-        type: 'open'
+        time: '12:00-13:00',
+        session: 'Training',
+        completed: true,
+        type: 'training'
+      },
+      {
+        date: '2026-04-29',
+        dayLabel: 'Woensdag 29 apr',
+        time: '19:30-21:00',
+        session: 'Geen training mogelijk',
+        detail: 'Woensdagavond trainen was niet mogelijk.',
+        type: 'constraint'
       },
       {
         date: '2026-04-30',
         dayLabel: 'Donderdag 30 apr',
-        time: '11:00-14:00',
-        session: 'Boekbare trainingsoptie',
-        type: 'open'
+        time: '11:30-12:00',
+        session: 'Training',
+        detail: 'Met trainingspartner Nouh',
+        completed: true,
+        type: 'training'
+      },
+      {
+        date: '2026-04-30',
+        dayLabel: 'Donderdag 30 apr',
+        time: '20:00-21:00',
+        session: 'Wedstrijdgroep Kickboksen',
+        detail: 'Benito',
+        completed: true,
+        tags: ['Techniek'],
+        type: 'training'
+      },
+      {
+        date: '2026-05-02',
+        dayLabel: 'Zaterdag 02 mei',
+        time: '08:45-10:00',
+        session: 'PrepX',
+        detail: 'Treffel',
+        tags: ['Conditie', 'Kracht'],
+        type: 'training'
+      },
+      {
+        date: '2026-05-03',
+        dayLabel: 'Zondag 03 mei',
+        time: '12:00-13:00',
+        session: '30+ Kickboksen',
+        detail: 'Gervin',
+        tags: ['Techniek', 'Sparren'],
+        type: 'training'
       }
     ]
   }),
