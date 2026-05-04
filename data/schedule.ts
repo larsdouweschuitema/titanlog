@@ -519,9 +519,10 @@ export const scheduleWeeks: ScheduleWeek[] = [
         date: '2026-05-03',
         dayLabel: 'Zondag 03 mei',
         time: '12:00-13:00',
-        session: '30+ Kickboksen',
-        detail: 'Gervin',
-        tags: ['Techniek', 'Sparren'],
+        session: '1 uur sparren',
+        detail: 'Gervin + Treffel',
+        completed: true,
+        tags: ['Sparren'],
         type: 'training'
       }
     ]
