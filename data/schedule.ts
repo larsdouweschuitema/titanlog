@@ -537,9 +537,9 @@ export const scheduleWeeks: ScheduleWeek[] = [
       {
         date: '2026-05-06',
         dayLabel: 'Woensdag 06 mei',
-        time: '12:00-14:00',
-        session: 'Boekbare trainingsoptie',
-        type: 'open'
+        time: 'Hele dag',
+        session: 'Geen training mogelijk',
+        type: 'constraint'
       },
       {
         date: '2026-05-07',
