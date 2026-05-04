@@ -54,7 +54,7 @@ const getMacroTargets = (totalCalories: number, proteinGrams: number) => {
 
 const currentDate = new Date()
 const todayKey = formatDateKey(currentDate)
-const goalWeightKg = 95
+const goalWeightKg = 96
 const fallbackWeightKg = 86.8
 const recommendedSurplusCalories = 300
 const weightLogs = campLogs.filter((log) => Boolean(log.weightKg))

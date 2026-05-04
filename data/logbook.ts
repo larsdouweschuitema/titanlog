@@ -34,6 +34,10 @@ const seedLogs: Record<string, Omit<DailyLog, 'date' | 'dayLabel' | 'weekTitle'>
   '2026-04-21': {
     meals: {},
     weightKg: 91
+  },
+  '2026-05-04': {
+    meals: {},
+    weightKg: 89.9
   }
 }
 
